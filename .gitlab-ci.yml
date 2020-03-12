@@ -1,0 +1,37 @@
+variables:
+  GEM_FURY_USERNAME: rentspree
+
+image: node:carbon
+
+stages:
+  - Test
+  - Release
+
+before_script:
+  - npm install
+
+run_test:
+  stage: Test
+  script:
+    - echo ${CI_COMMIT_SHA::8}
+    - npm run test
+  tags:
+    - kubernetes
+
+upload_to_gemfury:
+  stage: Release
+  only:
+    - tags
+  before_script:
+    - touch ~/.npmrc
+    # check if GEMFURY_DEPLOY_KEY variable is set
+    - if [ -z "$GEMFURY_TEAM_KEY" ]; then echo "Please set variable GEMFURY_TEAM_KEY"; exit 1; fi
+    - echo "//npm-proxy.fury.io/$GEM_FURY_USERNAME/:_authToken=$GEMFURY_TEAM_KEY" >> ~/.npmrc
+    - npm config set @rentspree:registry "https://npm-proxy.fury.io/$GEM_FURY_USERNAME/"
+    - npm install
+  script:
+    - echo "publishing $CI_COMMIT_TAG to Gemfury"
+    - npm run build
+    - npm publish
+  tags:
+    - kubernetes

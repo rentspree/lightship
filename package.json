@@ -1,0 +1,63 @@
+{
+  "name": "@rentspree/lightship",
+  "version": "1.0.0",
+  "description": "Liveness and Readiness Wrapper using Lightship for Node.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha 'test/**/*.test.js' --require @babel/register --require ./test/setup.js --exit",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "build": "rimraf dist/** && babel src/ -d dist -s",
+    "prettify": "prettier --write '{playground,src,test}/**/*.js'",
+    "preplayground": "npm run build",
+    "playground": "node_modules/.bin/nodemon playground/index.js --watch playground --exec 'node_modules/.bin/babel-node'",
+    "version": "standard-changelog && git add CHANGELOG.md"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:rentspree/module/lightship.git"
+  },
+  "author": "Sorasak Srirussamee <sorasak@rentspree.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/register": "^7.8.3",
+    "babel-eslint": "^10.0.3",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chaid": "^1.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-mocha": "^6.2.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "express": "^4.17.1",
+    "lint-staged": "^10.0.3",
+    "mocha": "^7.0.1",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.1",
+    "sinon": "^8.1.1",
+    "sinon-chai": "^3.4.0",
+    "standard-changelog": "^2.0.21",
+    "std-mocks": "^1.0.1"
+  },
+  "dependencies": {
+    "lightship": "^6.1.0"
+  }
+}
