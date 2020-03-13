@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "liveness and readiness wrapper using lightship for node.js",
   "main": "dist/index.js",
+  "homepage": "https://github.com/rentspree/lightship#readme",
   "scripts": {
     "test": "node_modules/.bin/mocha 'test/**/*.test.js' --require @babel/register --require ./test/setup.js --exit",
     "lint": "eslint .",
@@ -26,8 +27,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:rentspree/module/lightship.git"
+    "url": "git+https://github.com/rentspree/lightship.git"
   },
+  "keywords": [
+    "lightship",
+    "liveness",
+    "readiness",
+    "kubernetes",
+    "k8s",
+    "probes"
+  ], 
   "author": "Sorasak Srirussamee <sorasak@rentspree.com>",
   "license": "MIT",
   "devDependencies": {
