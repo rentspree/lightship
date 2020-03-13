@@ -61,5 +61,8 @@
   },
   "dependencies": {
     "lightship": "^6.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
