@@ -1,7 +1,7 @@
 {
   "name": "@rentspree/lightship",
-  "version": "1.0.0",
-  "description": "Liveness and Readiness Wrapper using Lightship for Node.js",
+  "version": "0.1.0",
+  "description": "liveness and readiness wrapper using lightship for node.js",
   "main": "dist/index.js",
   "scripts": {
     "test": "node_modules/.bin/mocha 'test/**/*.test.js' --require @babel/register --require ./test/setup.js --exit",
