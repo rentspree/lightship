@@ -1,4 +1,6 @@
-import { createLightship } from "lightship"
+import * as Lightship from "lightship"
+
+const { createLightship: createLightShipInstance } = Lightship
 
 const DEFAULT_PORT = 13000
 
@@ -19,7 +21,7 @@ const create = (
     // mock k8s env to force lightship use config port
     process.env.KUBERNETES_SERVICE_HOST = "kubernetes.default.svc.cluster.local"
   }
-  const lightship = createLightship({
+  const lightship = createLightShipInstance({
     ...(detectKubernetes && { detectKubernetes }),
     ...(port && { port }),
     ...(signals && { signals }),
@@ -71,5 +73,7 @@ const create = (
 
   return wrapLightship
 }
+
+export const createLightship = create
 
 export default create
