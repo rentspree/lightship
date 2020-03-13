@@ -1,25 +1,27 @@
+/* eslint-disable no-unused-expressions */
 import request from "supertest"
 import isArray from "lodash/isArray"
+import chai from "chai"
 import createLightship from "../src"
 
+const { should } = chai
 describe("createLightship", () => {
   describe("#Default Configuration", () => {
     let server
-    before(done => {
+
+    beforeEach(done => {
       const customLightShip = createLightship()
       server = customLightShip.lightship.server
       server.once("listening", () => {
         done()
       })
     })
-    after(() => {
+    afterEach(() => {
       server.close()
     })
-
     it("should start server at default port 13000 even when in local mode", () => {
       server.address().port.should.be.equal(13000)
     })
-
     describe("#Liveness", () => {
       it("should expose path /live with return status code 200", () =>
         request(server)
@@ -34,6 +36,57 @@ describe("createLightship", () => {
           .get("/ready")
           .send()
           .expect(500))
+    })
+  })
+  describe("#Options", () => {
+    afterEach(() => {
+      delete process.env.ROARR_LOG
+      delete process.env.KUBERNETES_SERVICE_HOST
+    })
+    describe("#enableLog option", () => {
+      it("should set process.env.ROARR_LOG to true", async () => {
+        const { lightship } = createLightship({ enableLog: true })
+        await new Promise(resolve => {
+          lightship.server.once("listening", () => resolve())
+        })
+        lightship.server.close()
+        process.env.ROARR_LOG.should.equal("true")
+      })
+    })
+
+    describe("#randomPortOnLocal option", () => {
+      it("should set process.env.KUBERNETES_SERVICE_HOST when randomPortOnLocal is not set and run on local", async () => {
+        const { lightship } = createLightship()
+        await new Promise(resolve => {
+          lightship.server.once("listening", () => resolve())
+        })
+        lightship.server.close()
+        process.env.KUBERNETES_SERVICE_HOST.should.not.be.undefined
+      })
+
+      it("should random port on local if randomPortOnLocal is set to true", async () => {
+        const { lightship } = createLightship({
+          port: 80,
+          randomPortOnLocal: true,
+        })
+        await new Promise(resolve => {
+          lightship.server.once("listening", () => resolve())
+        })
+        lightship.server.address().port.should.not.equal(80)
+        lightship.server.close()
+        should().equal(process.env.KUBERNETES_SERVICE_HOST, undefined)
+      })
+
+      it("should not interfere to KUBERNETES_SERVICE_HOST environment value if it's running in k8s cluster", async () => {
+        process.env.KUBERNETES_SERVICE_HOST = "cluster-value"
+        const { lightship } = createLightship()
+        await new Promise(resolve => {
+          lightship.server.once("listening", () => resolve())
+        })
+        lightship.server.address().port.should.not.equal(80)
+        lightship.server.close()
+        process.env.KUBERNETES_SERVICE_HOST.should.equal("cluster-value")
+      })
     })
   })
 

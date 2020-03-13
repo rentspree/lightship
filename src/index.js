@@ -14,7 +14,7 @@ const create = (
   } = { port: DEFAULT_PORT },
 ) => {
   if (enableLog) process.env.ROARR_LOG = true
-  const isOnLocal = process.env.KUBERNETES_SERVICE_HOST === undefined
+  const isOnLocal = !process.env.KUBERNETES_SERVICE_HOST
   if (!randomPortOnLocal && isOnLocal) {
     // mock k8s env to force lightship use config port
     process.env.KUBERNETES_SERVICE_HOST = "kubernetes.default.svc.cluster.local"
