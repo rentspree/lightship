@@ -8,3 +8,5 @@ chai
   .use(sinonChai)
   .use(chaiAsPromised)
   .use(chaid)
+
+ chai.should()
