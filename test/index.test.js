@@ -117,11 +117,22 @@ describe("createLightship", () => {
         await serverMustNotReady(server)
       })
     })
-    describe("#Multiple Ready Calls", () => {
+    describe("#Multiple Readiness Handlers", () => {
       it("should return Array<Function> type which has length matching to the parameter sent", async () => {
         const returnVal = createReadiness(3)
         isArray(returnVal).should.equal(true)
         returnVal.should.have.property("length").which.equal(3)
+      })
+      it("should have tolerance to multiple calls by only first time called is actually made", async () => {
+        const returnVal = createReadiness(3)
+        isArray(returnVal).should.equal(true)
+        returnVal.should.have.property("length").which.equal(3)
+        const returnVal2 = createReadiness(10)
+        isArray(returnVal2).should.equal(true)
+        returnVal2.should.have.property("length").which.equal(3)
+        returnVal.push(() => "this-is-mutation")
+        const [, , , newFn] = returnVal2
+        newFn().should.equal("this-is-mutation")
       })
       it("should make lightship to be ready state when every returned function is called", async () => {
         await serverMustNotReady(server)
@@ -133,16 +144,14 @@ describe("createLightship", () => {
       })
       it("should not make lightship to be ready state when there is some returned function is not called", async () => {
         await serverMustNotReady(server)
-        // eslint-disable-next-line no-unused-vars
-        const [dbReady, expressReady, senecaReady] = createReadiness(3)
+        const [dbReady, expressReady] = createReadiness(3)
         dbReady()
         expressReady()
         await serverMustNotReady(server)
       })
       it("should not make lightship to be ready state when there is some returned function is not called even when the other functions are called multiple times", async () => {
         await serverMustNotReady(server)
-        // eslint-disable-next-line no-unused-vars
-        const [dbReady, expressReady, senecaReady] = createReadiness(3)
+        const [dbReady, expressReady] = createReadiness(3)
         dbReady()
         dbReady()
         expressReady()
