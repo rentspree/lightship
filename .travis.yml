@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- "12.14.0"
+script:
+- npm run build
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: greenrenge@gmail.com
+  api_key:
+    secure: lTwN8KJ0pcmJhIGFLE0HKwKLUuUodlZIHbv31h8yq+oweBZ+MW9inAEZYyWavbBUuGvdhjGEDCmNMRSvsyK9QvoNcHAtTP4Mam3DfdLhyibQhxGTxvKeHNXgIjCdgldRSfVIpaj2XwcHHJ2v1t62bAD6xAUpkSAo95KMuGCkeTzMBAHTr0kwNKADMDKYba62fLurs6o+rD0VUs/nYWufO7w1hTDCsvI2PoeouEGGJ1epb/jTfSNgoq04GX5eWyHABMWUcFYyKO/FerUegChAoKMWxk4tEb5WQNCgvehhQ+Q2utZLAkT9r43xd9dvXzjiBV67KoiR72sIokJzaPiZmvnVXuIDGkq9M6ywtRcbBk+3WU/kT2wO4DVDUvFJiwsyL392GqDEkE2dge4+jG27571ayaNcP4jRG8GprwQpJ2UZbyEu6ajUlLLHyfj5Oavinf+42GcPnyPdFGWvl47MEUBLqSq/Lst1JRqWWgarDg3nUrMPlWYfNc00RVbEbgGCcMddy7VOXHQju8WUnBwCxvNpDkq8E5d73mpz/o8cGe7MW6S1KimkKInplpdg6rL/TMAPMBAJ+u2SJsCgOqFVKrPs+5CKUYZQyLhcK2Yf0+o86D7MJz0ePhtcYu4BdcuTUow0gOt+pxZiynEXz8ePqC0FIlw0BT4IBUQBmenn8zs=
+  on:
+    tags: true
