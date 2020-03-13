@@ -1,6 +1,6 @@
 {
   "name": "@rentspree/lightship",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "liveness and readiness wrapper using lightship for node.js",
   "main": "dist/index.js",
   "scripts": {
