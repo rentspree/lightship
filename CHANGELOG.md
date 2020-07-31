@@ -1,3 +1,7 @@
+## [0.2.1](https://github.com/rentspree/lightship/compare/v0.2.0...v0.2.1) (2020-07-31)
+
+
+
 # [0.2.0](https://github.com/rentspree/lightship/compare/0.1.5...0.2.0) (2020-07-31)
 
 
