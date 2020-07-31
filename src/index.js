@@ -22,10 +22,9 @@ const create = (
     // mock k8s env to force lightship use config port
     process.env.KUBERNETES_SERVICE_HOST = "kubernetes.default.svc.cluster.local"
   }
-
+  const isTestENV = process.env.NODE_ENV === "test"
   const randomPort =
-    ["true", true].includes(process.env.LIGHTSHIP_RANDOM_PORT) ||
-    process.env.NODE_ENV === "test"
+    ["true", true].includes(process.env.LIGHTSHIP_RANDOM_PORT) || isTestENV
   const port = randomPort ? 0 : customPort // random port
 
   const lightship = createLightShipInstance({
@@ -35,6 +34,7 @@ const create = (
     ...(terminate && { terminate }),
     ...(gracefulShutdownTimeout && { gracefulShutdownTimeout }),
   })
+  if (isTestENV) lightship.server.close()
 
   let createdReadiness
   const wrapLightship = {
