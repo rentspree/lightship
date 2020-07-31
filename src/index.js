@@ -7,7 +7,7 @@ const DEFAULT_PORT = 13000
 const create = (
   {
     detectKubernetes,
-    port = DEFAULT_PORT,
+    port: customPort = DEFAULT_PORT,
     signals,
     terminate,
     gracefulShutdownTimeout,
@@ -17,10 +17,17 @@ const create = (
 ) => {
   if (enableLog) process.env.ROARR_LOG = true
   const isOnLocal = !process.env.KUBERNETES_SERVICE_HOST
-  if (!randomPortOnLocal && isOnLocal) {
+
+  if (isOnLocal && !randomPortOnLocal) {
     // mock k8s env to force lightship use config port
     process.env.KUBERNETES_SERVICE_HOST = "kubernetes.default.svc.cluster.local"
   }
+
+  const randomPort =
+    ["true", true].includes(process.env.LIGHTSHIP_RANDOM_PORT) ||
+    process.env.NODE_ENV === "test"
+  const port = randomPort ? 0 : customPort // random port
+
   const lightship = createLightShipInstance({
     ...(detectKubernetes && { detectKubernetes }),
     ...(port && { port }),
@@ -28,6 +35,7 @@ const create = (
     ...(terminate && { terminate }),
     ...(gracefulShutdownTimeout && { gracefulShutdownTimeout }),
   })
+
   let createdReadiness
   const wrapLightship = {
     lightship,
