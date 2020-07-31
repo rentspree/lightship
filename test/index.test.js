@@ -99,7 +99,7 @@ describe("createLightship", () => {
         process.env.KUBERNETES_SERVICE_HOST.should.equal("cluster-value")
       })
 
-      it("should random port if process.env.NODE_ENV=test", async () => {
+      it("should close server immediately from the start when process.env.NODE_ENV=test", async () => {
         process.env.NODE_ENV = "other"
         const { lightship } = createLightship({ port: 12300 })
         await new Promise(resolve => {
@@ -113,11 +113,7 @@ describe("createLightship", () => {
         process.env.NODE_ENV = "test"
         const { lightship: lightship2 } = createLightship({ port: 12300 })
         await new Promise(resolve => {
-          lightship2.server.once("listening", () => resolve())
-        })
-        lightship2.server.address().port.should.not.equal(12300)
-        await new Promise(resolve => {
-          lightship2.server.close(() => resolve())
+          lightship2.server.once("close", () => resolve())
         })
       })
 
