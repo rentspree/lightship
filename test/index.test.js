@@ -70,13 +70,13 @@ describe("createLightship", () => {
 
       it("should random port on local if randomPortOnLocal is set to true", async () => {
         const { lightship } = createLightship({
-          port: 80,
+          port: 12000,
           randomPortOnLocal: true,
         })
         await new Promise(resolve => {
           lightship.server.once("listening", () => resolve())
         })
-        lightship.server.address().port.should.not.equal(80)
+        lightship.server.address().port.should.not.equal(12000)
         await new Promise(resolve => {
           lightship.server.close(() => resolve())
         })
@@ -86,13 +86,13 @@ describe("createLightship", () => {
       it("should not interfere to KUBERNETES_SERVICE_HOST environment value if it's running in k8s cluster", async () => {
         process.env.KUBERNETES_SERVICE_HOST = "cluster-value"
         const { lightship } = createLightship({
-          port: 80,
+          port: 12000,
           randomPortOnLocal: true,
         })
         await new Promise(resolve => {
           lightship.server.once("listening", () => resolve())
         })
-        lightship.server.address().port.should.equal(80)
+        lightship.server.address().port.should.equal(12000)
         await new Promise(resolve => {
           lightship.server.close(() => resolve())
         })
@@ -101,21 +101,21 @@ describe("createLightship", () => {
 
       it("should random port if process.env.NODE_ENV=test", async () => {
         process.env.NODE_ENV = "other"
-        const { lightship } = createLightship({ port: 130 })
+        const { lightship } = createLightship({ port: 12300 })
         await new Promise(resolve => {
           lightship.server.once("listening", () => resolve())
         })
-        lightship.server.address().port.should.equal(130)
+        lightship.server.address().port.should.equal(12300)
         await new Promise(resolve => {
           lightship.server.close(() => resolve())
         })
 
         process.env.NODE_ENV = "test"
-        const { lightship: lightship2 } = createLightship({ port: 130 })
+        const { lightship: lightship2 } = createLightship({ port: 12300 })
         await new Promise(resolve => {
           lightship2.server.once("listening", () => resolve())
         })
-        lightship2.server.address().port.should.not.equal(130)
+        lightship2.server.address().port.should.not.equal(12300)
         await new Promise(resolve => {
           lightship2.server.close(() => resolve())
         })
@@ -123,31 +123,31 @@ describe("createLightship", () => {
 
       it("should random port if process.env.LIGHTSHIP_RANDOM_PORT=true", async () => {
         process.env.LIGHTSHIP_RANDOM_PORT = "truee"
-        const { lightship } = createLightship({ port: 130 })
+        const { lightship } = createLightship({ port: 12300 })
         await new Promise(resolve => {
           lightship.server.once("listening", () => resolve())
         })
-        lightship.server.address().port.should.equal(130)
+        lightship.server.address().port.should.equal(12300)
         await new Promise(resolve => {
           lightship.server.close(() => resolve())
         })
 
         process.env.LIGHTSHIP_RANDOM_PORT = "true"
-        const { lightship: lightship2 } = createLightship({ port: 131 })
+        const { lightship: lightship2 } = createLightship({ port: 13100 })
         await new Promise(resolve => {
           lightship2.server.once("listening", () => resolve())
         })
-        lightship2.server.address().port.should.not.equal(131)
+        lightship2.server.address().port.should.not.equal(13100)
         await new Promise(resolve => {
           lightship2.server.close(() => resolve())
         })
 
         process.env.LIGHTSHIP_RANDOM_PORT = true
-        const { lightship: lightship3 } = createLightship({ port: 132 })
+        const { lightship: lightship3 } = createLightship({ port: 13200 })
         await new Promise(resolve => {
           lightship3.server.once("listening", () => resolve())
         })
-        lightship3.server.address().port.should.not.equal(132)
+        lightship3.server.address().port.should.not.equal(13200)
         await new Promise(resolve => {
           lightship3.server.close(() => resolve())
         })
@@ -156,11 +156,11 @@ describe("createLightship", () => {
       it("should random port if process.env.LIGHTSHIP_RANDOM_PORT=true even when service is running on k8s", async () => {
         process.env.LIGHTSHIP_RANDOM_PORT = "true"
         process.env.KUBERNETES_SERVICE_HOST = "cluster-value"
-        const { lightship } = createLightship({ port: 80 })
+        const { lightship } = createLightship({ port: 12000 })
         await new Promise(resolve => {
           lightship.server.once("listening", () => resolve())
         })
-        lightship.server.address().port.should.not.equal(80)
+        lightship.server.address().port.should.not.equal(12000)
         await new Promise(resolve => {
           lightship.server.close(() => resolve())
         })
