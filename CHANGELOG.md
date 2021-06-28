@@ -1,3 +1,13 @@
+## [0.2.5](https://github.com/rentspree/lightship/compare/v0.2.4...v0.2.5) (2021-06-28)
+
+
+### Bug Fixes
+
+* change travis configuration ([e69bd57](https://github.com/rentspree/lightship/commit/e69bd5759ae5058cd4374e86f313c13ca330cfd5))
+* version ([0ccc417](https://github.com/rentspree/lightship/commit/0ccc4175f180a2e2389999c96b2e309733857943))
+
+
+
 ## [0.2.4](https://github.com/rentspree/lightship/compare/v0.2.3...v0.2.4) (2021-06-28)
 
 
