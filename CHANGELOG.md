@@ -1,3 +1,12 @@
+## [0.2.8](https://github.com/rentspree/lightship/compare/v0.2.7...v0.2.8) (2021-06-29)
+
+
+### Bug Fixes
+
+* npm api key ([3950627](https://github.com/rentspree/lightship/commit/3950627f2d16016dcdf8b7acfdcadee783cc71ea))
+
+
+
 ## [0.2.7](https://github.com/rentspree/lightship/compare/v0.2.6...v0.2.7) (2021-06-29)
 
 
