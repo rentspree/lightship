@@ -25,7 +25,6 @@ const create = (
   const isTestENV = process.env.NODE_ENV === "test"
   const randomPort =
     ["true", true].includes(process.env.LIGHTSHIP_RANDOM_PORT) || isTestENV
-
   const lightship = createLightShipInstance({
     ...(detectKubernetes && { detectKubernetes }),
     ...(customPort && { port: customPort }),
