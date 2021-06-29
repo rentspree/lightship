@@ -1,3 +1,13 @@
+## [0.2.7](https://github.com/rentspree/lightship/compare/v0.2.6...v0.2.7) (2021-06-29)
+
+
+### Bug Fixes
+
+* add new version ([5726d4a](https://github.com/rentspree/lightship/commit/5726d4a4a73c16c0d7cb3d43c0cdd8919decfee4))
+* travisci ([7648194](https://github.com/rentspree/lightship/commit/7648194e7ee4b7b94025b201026e2ae7b77cedf8))
+
+
+
 ## [0.2.6](https://github.com/rentspree/lightship/compare/v0.2.5...v0.2.6) (2021-06-28)
 
 
