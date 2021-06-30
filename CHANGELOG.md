@@ -1,3 +1,13 @@
+## [0.2.9](https://github.com/rentspree/lightship/compare/v0.2.8...v0.2.9) (2021-06-30)
+
+
+### Bug Fixes
+
+* downgrade lightship version ([b7add49](https://github.com/rentspree/lightship/commit/b7add492a5c194bbbfc004115d63040befe19777))
+* downgrade lightship version ([fbb0849](https://github.com/rentspree/lightship/commit/fbb0849dbd11c9e2803d49473ca8bf87d8ea5085))
+
+
+
 ## [0.2.8](https://github.com/rentspree/lightship/compare/v0.2.7...v0.2.8) (2021-06-29)
 
 
