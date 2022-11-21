@@ -1,6 +1,6 @@
 {
   "name": "@rentspree/lightship",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "liveness and readiness wrapper using lightship for node.js",
   "main": "dist/index.js",
   "homepage": "https://github.com/rentspree/lightship#readme",
@@ -20,10 +20,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.js": [ "eslint --fix", "git add" ]
   },
   "repository": {
     "type": "git",
